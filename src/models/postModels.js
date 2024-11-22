@@ -1,4 +1,5 @@
 // Importa a função para conectar ao banco de dados
+import { ObjectId } from "mongodb";
 import conectarAoBanco from "../config/db.js";
 
 // Estabelece a conexão com o banco de dados
@@ -20,4 +21,11 @@ export async function getPosts() {
 export async function createPost(post) {
   // Insere o novo post na coleção 'posts' e retorna o resultado da inserção
   return posts.insertOne(post);
+}
+
+export async function updatePosts(id,post) {
+
+  const newPost = ObjectId.createFromHexString(id)
+
+  return posts.updateOne({_id: new ObjectId(newPost)},{$set: post})
 }
